@@ -122,6 +122,7 @@ td.neg{color:var(--suit-red)}
 button.rlabel{background:none;border:none;padding:7px 0;width:100%;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
 tfoot td{font-family:var(--serif);font-size:20px;font-weight:700;padding-top:10px;border-top:2px solid var(--ink)}
 tfoot td.lead::after{content:" \2660";color:var(--gold);font-size:13px}
+.posrow td{font-family:var(--sans);font-size:12px;font-weight:500;color:var(--ink-soft);border-top:none;padding-top:2px}
 .padnote{font-size:12px;color:var(--ink-soft);margin:10px 0 0;text-align:center}
 
 /* past matches */
@@ -135,6 +136,7 @@ tfoot td.lead::after{content:" \2660";color:var(--gold);font-size:13px}
 .hist button:active{background:#efe8d6}
 .hist .win{font-family:var(--serif);font-weight:600;font-size:17px}
 .hist .meta{display:block;font-size:12px;color:var(--ink-soft);margin-top:2px}
+.hist .standings-line{font-variant-numeric:tabular-nums}
 .hist .pts{font-family:var(--serif);font-weight:700;font-size:19px;white-space:nowrap}
 .hist .pts.neg{color:var(--suit-red)}
 .stamp{font-size:13px;color:var(--ink-soft);margin:0 0 14px;line-height:1.6}

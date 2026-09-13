@@ -66,6 +66,18 @@ function totalsOf(rounds){
   return [0,1,2,3].map(i => rounds.reduce((a,r) => a + r.scores[i], 0));
 }
 function totals(){ return totalsOf(S.rounds); }
+/* ---------- standing position for every seat, ties share a rank (1,2,2,4) ---------- */
+function ranksOf(tot){
+  const order = [0,1,2,3].sort((a,b) => tot[b] - tot[a]);
+  const rank = [];
+  order.forEach((seat, p) => {
+    rank[seat] = (p > 0 && tot[seat] === tot[order[p-1]]) ? rank[order[p-1]] : p + 1;
+  });
+  return rank;
+}
+function ordinal(n){
+  return n === 1 ? "1st" : n === 2 ? "2nd" : n === 3 ? "3rd" : n + "th";
+}
 const sum = a => a.reduce((x,y) => x + y, 0);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
@@ -274,12 +286,18 @@ function padFor(title, names, rounds, live){
         ? '<td class="' + (done.scores[i] < 0 ? "neg" : "") + '">' + fmt(done.scores[i]) + '</td>'
         : '<td class="empty">&middot;</td>').join("") + '</tr>';
   }
+  const ranks = ranksOf(tot);
+  const posRow = rounds.length
+    ? '<tr class="posrow"><td class="rlabel">Pos</td>' +
+      ranks.map(r => '<td>' + ordinal(r) + '</td>').join("") + '</tr>'
+    : "";
+
   return '<div class="pad"><h2>' + title + '</h2><table>' +
     '<thead><tr><th></th>' + names.map(n => '<th>' + esc(n) + '</th>').join("") + '</tr></thead>' +
     '<tbody>' + body + '</tbody>' +
     '<tfoot><tr><td class="rlabel"></td>' + tot.map(v =>
       '<td class="' + (v < 0 ? "neg " : "") + ((v === best && rounds.length > 0) ? "lead" : "") + '">' +
-      fmt(v) + '</td>').join("") + '</tr></tfoot></table>' +
+      fmt(v) + '</td>').join("") + '</tr>' + posRow + '</tfoot></table>' +
     (live ? '<p class="padnote">' + (rounds.length
       ? "Tap a round number to correct it."
       : "Scores land here as each round is saved.") + '</p>' : "") +
@@ -296,10 +314,14 @@ function viewHistory(){
     list = '<ul class="hist">' + h.map(m => {
       const tot = totalsOf(m.rounds);
       const w = tot.indexOf(Math.max.apply(null, tot));
+      const ranks = ranksOf(tot);
+      const order = [0,1,2,3].slice().sort((a,b) => ranks[a] - ranks[b]);
+      const posLine = order.map(i =>
+        ordinal(ranks[i]) + " " + esc(m.names[i]) + " " + fmt(tot[i])).join(" &middot; ");
       return '<li><button data-act="open" data-id="' + m.id + '">' +
         '<span><span class="win">' + esc(m.names[w]) + '</span>' +
-        '<span class="meta">' + when(m.endedAt) + ' &middot; ' + span(m.startedAt, m.endedAt) +
-        ' &middot; ' + m.names.map(esc).join(", ") + '</span></span>' +
+        '<span class="meta">' + when(m.endedAt) + ' &middot; ' + span(m.startedAt, m.endedAt) + '</span>' +
+        '<span class="meta standings-line">' + posLine + '</span></span>' +
         '<span class="pts' + (tot[w] < 0 ? " neg" : "") + '">' + fmt(tot[w]) + '</span>' +
         '</button></li>';
     }).join("") + '</ul>';
