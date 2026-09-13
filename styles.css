@@ -173,17 +173,18 @@ a:hover{ color: var(--signal-dark); }
 .lede{
   font-family: var(--display);
   font-weight: 700;
-  font-size: clamp(2rem, 1.1rem + 4.6vw, 4rem);
-  line-height: 1.03;
-  letter-spacing: -0.032em;
+  font-size: clamp(2rem, 1.1rem + 4.2vw, 3.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
   margin: 0;
   max-width: 19ch;
   text-wrap: balance;
 }
+.lede .accent{ color: var(--signal); }
 
 .standfirst{
-  max-width: 60ch;
-  margin: 1.5rem 0 0;
+  max-width: 58ch;
+  margin: 1.75rem 0 0;
   color: var(--ink-soft);
 }
 
@@ -251,6 +252,90 @@ a:hover{ color: var(--signal-dark); }
   text-decoration: none;
 }
 .open:hover{ background: var(--signal-dark); color: var(--paper-lift); }
+
+button.open{
+  border: 0;
+  cursor: pointer;
+  line-height: inherit;
+}
+
+/* ---------- the scoreboard picker --------------------------------- */
+
+.picker{
+  width: min(26rem, calc(100vw - 2rem));
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--paper-lift);
+  color: var(--ink);
+}
+.picker::backdrop{ background: rgba(28, 34, 32, 0.45); }
+
+.picker-head{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.2rem 0.85rem;
+  border-bottom: 1px solid var(--rule);
+}
+.picker-head h3{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+.picker-shut{
+  background: none;
+  border: 0;
+  padding: 0 0.15rem;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+.picker-shut:hover{ color: var(--ink); }
+
+.picklist{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.picklist li + li{ border-top: 1px solid var(--rule); }
+.picklist a{
+  display: block;
+  padding: 0.95rem 1.2rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+.picklist a:hover,
+.picklist a:focus-visible{ background: var(--signal-tint); color: var(--ink); }
+
+.pick-name{
+  display: block;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.02rem;
+  color: var(--signal-dark);
+}
+.pick-note{
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+/* Without JavaScript, or in a browser with no dialog support, the list
+   simply sits open in the page rather than vanishing. */
+.no-dialog .picker{
+  display: block;
+  position: static;
+  margin: 1.5rem 0 0;
+}
+.no-dialog [data-opens],
+.no-dialog .picker-shut{ display: none; }
 
 /* ---------- study ------------------------------------------------ */
 

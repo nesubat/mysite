@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<script>document.documentElement.className += " js";</script>
+<script src="noflash.js"></script>
 </head>
 <body>
 
@@ -48,7 +48,7 @@
   <main class="main" id="main">
 
     <section class="band" id="intro">
-      <h1 class="lede">I build small tools that people actually use at work.</h1>
+      <h1 class="lede">I build small tools that people <span class="accent">actually use</span> at work.</h1>
       <p class="standfirst">
         I studied information technology in Sydney and came up through network security
         and virtualisation. Most of what I make starts with someone on the floor saying
@@ -74,10 +74,10 @@
           </p>
         </article>
         <article class="skill">
-          <h3>Office and presenting data</h3>
+          <h3>Building Webapps</h3>
           <p>
-            Six years in the Office suite, most of it without touching the mouse. I am
-            good at shaping a messy spreadsheet into something other people can read.
+            Small internal tools for a few different workplaces, built to cut a manual
+            step out of someone's day. <a href="#work">Repo details are in Work &darr;</a>
           </p>
         </article>
       </div>
@@ -87,18 +87,53 @@
       <h2>Work</h2>
       <div class="works">
         <article class="work">
-          <h3>Call Break Scorepad</h3>
+          <h3>Internal Web Tools</h3>
           <p>
-            A scorekeeper for the four-player card game. Enter what each player calls and
-            how many tricks they win, and it handles the rest across all five rounds.
+            Tools built for teams at work: one sorts, shuffles and labels unique
+            item allocations; another logs team tasks and turns them into
+            management reports with images attached.
           </p>
-          <p class="built">
-            HTML, CSS and JavaScript. Saves to the phone it runs on, so nothing is lost
-            between hands and no sign-in is needed.
+          <p class="built">HTML, CSS and JavaScript.</p>
+          <!-- TODO: swap href="#" for the repo URL -->
+          <a class="open" href="https://github.com/nesubat?tab=repositories" target="_blank" rel="noopener noreferrer">View the repo</a>
+        </article>
+        <article class="work">
+          <h3>Card Game Scoreboards</h3>
+          <p>
+            Scorepads for the card games we actually play &mdash; running totals,
+            fixable rounds, and matches that survive a closed phone mid-hand.
           </p>
-          <a class="open" href="callbreak.html">Open the scorepad</a>
+          <p class="built">HTML, CSS and JavaScript. Saves on-device, no sign-in.</p>
+          <button class="open" type="button" data-opens="scoreboards">Pick a scoreboard</button>
         </article>
       </div>
+
+      <dialog class="picker" id="scoreboards" aria-labelledby="picker-title">
+        <div class="picker-head">
+          <h3 id="picker-title">Card game scoreboards</h3>
+          <button class="picker-shut" type="button" data-shuts="scoreboards" aria-label="Close">&times;</button>
+        </div>
+        <ul class="picklist">
+          <li>
+            <a href="callbreak.html">
+              <span class="pick-name">Call Break</span>
+              <span class="pick-note">Four players, five rounds. Calls, tricks and the bare nine.</span>
+            </a>
+          </li>
+          <li>
+            <a href="dhumbal.html">
+              <span class="pick-name">Dhumbal</span>
+              <span class="pick-note">Two to eight players. One winner a round, and catches count double.</span>
+            </a>
+          </li>
+          <li>
+            <a href="threecard.html">
+              <span class="pick-name">Three Card</span>
+              <span class="pick-note">Up to seventeen at the table. One winner takes a point off each.</span>
+            </a>
+          </li>
+        </ul>
+      </dialog>
     </section>
 
     <section class="band" id="study">

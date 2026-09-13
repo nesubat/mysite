@@ -16,6 +16,42 @@
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
 
+  /* --- the scoreboard picker ------------------------------------ */
+  /* A plain dialog. If the browser has no showModal, the stylesheet
+     is told to leave the list sitting open in the page instead. */
+  (function () {
+    var dialogs = Array.prototype.slice.call(document.querySelectorAll("dialog"));
+    if (!dialogs.length) return;
+
+    var supported = typeof HTMLDialogElement === "function" &&
+                    typeof document.createElement("dialog").showModal === "function";
+
+    if (!supported) {
+      document.documentElement.classList.add("no-dialog");
+      return;
+    }
+
+    document.addEventListener("click", function (e) {
+      var opener = e.target.closest("[data-opens]");
+      if (opener) {
+        var d = document.getElementById(opener.getAttribute("data-opens"));
+        if (d) d.showModal();
+        return;
+      }
+
+      var shutter = e.target.closest("[data-shuts]");
+      if (shutter) {
+        var s = document.getElementById(shutter.getAttribute("data-shuts"));
+        if (s) s.close();
+        return;
+      }
+
+      /* Clicking the backdrop lands on the dialog itself, never on its
+         contents, so that is the cue to close. */
+      if (e.target.tagName === "DIALOG") e.target.close();
+    });
+  })();
+
   /* --- section index ------------------------------------------- */
   var nav = document.querySelector(".index");
   if (!nav) return;

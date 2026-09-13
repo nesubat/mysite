@@ -1,0 +1,158 @@
+:root{
+  --felt:#173a2d;
+  --felt-deep:#0f2a20;
+  --card:#f7f2e6;
+  --card-edge:#e3dac6;
+  --ink:#1b1a17;
+  --ink-soft:#6b6559;
+  --suit-red:#a8231c;
+  --gold:#c19a4b;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--felt);
+  background-image:radial-gradient(120% 70% at 50% 0%, #1e4839 0%, var(--felt) 45%, var(--felt-deep) 100%);
+  background-attachment:fixed;
+  color:var(--card);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.45;
+  min-height:100vh;
+  padding:0 14px calc(40px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:520px;margin:0 auto}
+.backlink{display:inline-block;margin:16px 0 -8px;color:#b9cfc3;font-size:14px;text-decoration:none;
+  padding:4px 0;border-bottom:1px solid rgba(185,207,195,.35)}
+.backlink:active{color:var(--gold);border-bottom-color:var(--gold)}
+header{padding:26px 2px 18px;display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.brand{font-family:var(--serif);font-weight:600;font-size:30px;letter-spacing:-.01em;line-height:1}
+.brand .pip{color:var(--gold)}
+.roundtag{font-family:var(--serif);font-size:15px;color:#b9cfc3;text-align:right}
+.roundtag b{color:var(--gold);font-weight:600}
+
+.card{
+  background:var(--card);color:var(--ink);
+  border-radius:14px;
+  padding:18px 16px 16px;
+  box-shadow:0 14px 30px rgba(0,0,0,.32), 0 1px 0 #fff inset;
+  border:1px solid var(--card-edge);
+  position:relative;
+  margin-bottom:18px;
+}
+.card::after{
+  content:"\2663";position:absolute;right:14px;bottom:10px;
+  font-size:34px;color:rgba(27,26,23,.06);line-height:1;pointer-events:none;
+}
+.settle{animation:settle .28s cubic-bezier(.2,.7,.3,1)}
+@keyframes settle{from{transform:translateY(6px) scale(.99);opacity:.4}to{transform:none;opacity:1}}
+
+.cardhead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:2px}
+.cardhead h2{font-family:var(--serif);font-weight:600;font-size:21px;margin:0}
+.tally{font-family:var(--serif);font-size:19px;font-weight:600}
+.tally small{font-family:var(--sans);font-size:12px;font-weight:400;color:var(--ink-soft)}
+.sub{color:var(--ink-soft);font-size:13.5px;margin:0 0 12px}
+.seclabel{font-family:var(--sans);font-size:12.5px;color:var(--ink-soft);margin:16px 0 7px;
+  text-transform:uppercase;letter-spacing:.06em}
+
+/* the seat picker — a grid, because a big table needs the columns */
+.seats{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(118px,1fr))}
+.seat{
+  padding:12px 10px;border-radius:10px;border:1px solid var(--card-edge);
+  background:#fffdf7;color:var(--ink);font-family:var(--sans);font-size:15px;
+  cursor:pointer;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.seat:active{background:#efe8d6}
+.seat.pick{background:var(--felt);border-color:var(--felt);color:#f4efe2;font-weight:600}
+
+.preview{border-top:1px solid var(--card-edge);margin-top:16px}
+.prow{display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:9px 0;border-bottom:1px solid var(--card-edge)}
+.prow .who{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.prow .who i{font-style:normal;font-size:12px;color:var(--ink-soft);margin-left:6px}
+.prow .d{font-family:var(--serif);font-weight:700;font-size:21px;color:var(--felt);
+  font-variant-numeric:tabular-nums}
+.prow .d.down{color:var(--suit-red)}
+.foldnote{font-size:13px;color:var(--ink-soft);margin:10px 0 0;text-align:center}
+
+.note{border-radius:9px;padding:10px 12px;font-size:14px;margin:12px 0 0;line-height:1.4}
+.note.bad{background:#f6e2e0;color:#7d1a15;border:1px solid #e6c4c1}
+.note.warn{background:#f6ecd7;color:#6d5312;border:1px solid #e7d6ae}
+.note.calm{background:#e3ece4;color:#2c4a39;border:1px solid #cbdccf}
+
+.btn{
+  display:block;width:100%;margin-top:14px;padding:14px;border-radius:11px;
+  border:none;background:var(--felt);color:#f4efe2;font-family:var(--serif);
+  font-size:17px;font-weight:600;cursor:pointer;text-align:center;
+}
+.btn:active{background:var(--felt-deep)}
+.btn[disabled]{background:#ded6c4;color:#948d7c;cursor:default}
+.btn.ghost{background:transparent;color:var(--felt);border:1px solid var(--card-edge);font-size:15px;margin-top:8px}
+.btn.small{padding:11px;font-size:15px}
+.btn.danger{color:var(--suit-red);border-color:#e6c4c1}
+.pair{display:flex;gap:8px}
+.pair .btn{flex:1}
+
+.pad{background:var(--card);color:var(--ink);border-radius:14px;padding:16px 14px;border:1px solid var(--card-edge);box-shadow:0 14px 30px rgba(0,0,0,.28);margin-bottom:18px}
+.pad h2{font-family:var(--serif);font-weight:600;font-size:20px;margin:0 0 10px}
+.padscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums;min-width:100%}
+th,td{padding:7px 4px;text-align:center;font-size:15px}
+thead th{font-family:var(--sans);font-size:12px;font-weight:500;color:var(--ink-soft);border-bottom:1px solid var(--card-edge);
+  max-width:70px;min-width:46px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+tbody td{font-family:var(--serif);font-weight:600;border-bottom:1px solid #ece5d4}
+tbody td.empty{color:#c7bfab;font-weight:400}
+td.neg{color:var(--suit-red)}
+.rlabel{font-family:var(--sans)!important;font-size:12px!important;color:var(--ink-soft);font-weight:400!important;width:34px;
+  position:sticky;left:0;background:var(--card)}
+button.rlabel{background:var(--card);border:none;padding:7px 0;width:100%;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+tfoot td{font-family:var(--serif);font-size:20px;font-weight:700;padding-top:10px;border-top:2px solid var(--ink)}
+tfoot td.lead::after{content:" \2663";color:var(--gold);font-size:13px}
+.padnote{font-size:12px;color:var(--ink-soft);margin:10px 0 0;text-align:center}
+
+.hist{list-style:none;margin:0;padding:0}
+.hist li{border-bottom:1px solid var(--card-edge)}
+.hist button{
+  width:100%;background:none;border:none;padding:12px 2px;cursor:pointer;
+  display:flex;align-items:baseline;justify-content:space-between;gap:12px;text-align:left;
+  font-family:var(--sans);color:var(--ink);font-size:15px;
+}
+.hist button:active{background:#efe8d6}
+.hist .win{font-family:var(--serif);font-weight:600;font-size:17px}
+.hist .meta{display:block;font-size:12px;color:var(--ink-soft);margin-top:2px}
+.hist .pts{font-family:var(--serif);font-weight:700;font-size:19px;white-space:nowrap}
+.hist .pts.neg{color:var(--suit-red)}
+.stamp{font-size:13px;color:var(--ink-soft);margin:0 0 14px;line-height:1.6}
+.stamp b{color:var(--ink);font-weight:600}
+.empty-state{color:var(--ink-soft);font-size:14px;margin:4px 0 0}
+.filepick{display:none}
+
+.setup label{display:block;font-size:12.5px;color:var(--ink-soft);margin:12px 0 4px}
+.setup input{
+  width:100%;padding:12px;border-radius:10px;border:1px solid var(--card-edge);
+  background:#fffdf7;font-size:17px;font-family:var(--serif);color:var(--ink);
+}
+.setup input:focus{outline:2px solid var(--felt);outline-offset:1px}
+.counter{display:flex;align-items:center;gap:10px;margin-top:6px}
+.counter button{
+  width:44px;height:44px;border-radius:10px;border:1px solid var(--card-edge);
+  background:#fffdf7;color:var(--ink);font-size:22px;line-height:1;cursor:pointer;
+  display:grid;place-items:center;
+}
+.counter button:active{background:#efe8d6}
+.counter button[disabled]{opacity:.32;cursor:default}
+.counter .n{font-family:var(--serif);font-size:26px;font-weight:700;min-width:40px;text-align:center}
+.counter .lbl{color:var(--ink-soft);font-size:13.5px}
+
+.final{text-align:center}
+.final .champ{font-family:var(--serif);font-size:32px;font-weight:700;line-height:1.1;margin:6px 0 2px}
+.final .score{font-family:var(--serif);font-size:17px;color:var(--ink-soft)}
+ol.standings{list-style:none;padding:0;margin:16px 0 0;text-align:left}
+ol.standings li{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--card-edge);font-size:16px}
+ol.standings li span:last-child{font-family:var(--serif);font-weight:600}
+ol.standings li.n{color:var(--suit-red)}
+
+footer{text-align:center;padding:18px 0 0;color:#8fae9f;font-size:12px}
+@media (prefers-reduced-motion:reduce){.settle{animation:none}}
