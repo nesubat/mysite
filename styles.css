@@ -1,0 +1,435 @@
+/* ---------------------------------------------------------------
+   Sujan Basnet — personal site
+   Mobile first. The desktop rail appears at 900px.
+   --------------------------------------------------------------- */
+
+:root{
+  --paper:      #eceae4;
+  --paper-lift: #f5f3ee;
+  --ink:        #1c2220;
+  --ink-soft:   #5c625f;
+  --rule:       #d5d2ca;
+  --signal:     #0e6a86;
+  --signal-dark:#0a4f64;
+  --signal-tint:#dfebf0;
+
+  --display: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --text: "Newsreader", Georgia, "Times New Roman", serif;
+
+  --gutter: clamp(1.15rem, 4vw, 2.5rem);
+  --gap: clamp(2.75rem, 7vw, 4.5rem);
+}
+
+*, *::before, *::after{ box-sizing: border-box; }
+
+html{
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body{
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: clamp(1rem, 0.95rem + 0.22vw, 1.09rem);
+  line-height: 1.65;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+img{ max-width: 100%; height: auto; display: block; }
+
+a{ color: var(--signal); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover{ color: var(--signal-dark); }
+
+:focus-visible{
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.skip{
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.65rem 1rem;
+  z-index: 20;
+}
+.skip:focus{ left: 0; }
+
+/* ---------- shell ---------------------------------------------- */
+
+.shell{
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 0 var(--gutter) clamp(3rem, 8vw, 5rem);
+}
+
+/* On small screens the aside dissolves so its three children become
+   grid items in their own right, which lets the index strip stick. */
+.side{ display: contents; }
+
+.me{
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+  padding: clamp(1.5rem, 5vw, 2.25rem) 0 1.1rem;
+}
+
+.portrait{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--rule);
+  flex: none;
+}
+
+.name{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.18rem;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+.role{
+  margin: 0.15rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+/* ---------- section index -------------------------------------- */
+
+.index{
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  margin: 0 calc(var(--gutter) * -1);
+  padding: 0 var(--gutter);
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.index::-webkit-scrollbar{ display: none; }
+
+.index ul{
+  display: flex;
+  gap: 1.3rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: max-content;
+}
+
+.index a{
+  display: block;
+  padding: 0.85rem 0;
+  font-family: var(--display);
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+}
+.index a:hover{ color: var(--ink); }
+.index a[aria-current="true"]{
+  color: var(--ink);
+  border-bottom-color: var(--signal);
+}
+
+/* The rail's contact list is desktop-only; #contact covers mobile. */
+.reach{ display: none; }
+
+/* ---------- content -------------------------------------------- */
+
+.main{ min-width: 0; }
+
+.band{
+  padding-top: var(--gap);
+  scroll-margin-top: 4rem;
+}
+.band + .band{
+  border-top: 1px solid var(--rule);
+}
+
+.band h2{
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(1.3rem, 1.1rem + 0.9vw, 1.75rem);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin: 0 0 1.4rem;
+}
+
+.lede{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2rem, 1.1rem + 4.6vw, 4rem);
+  line-height: 1.03;
+  letter-spacing: -0.032em;
+  margin: 0;
+  max-width: 19ch;
+  text-wrap: balance;
+}
+
+.standfirst{
+  max-width: 60ch;
+  margin: 1.5rem 0 0;
+  color: var(--ink-soft);
+}
+
+/* ---------- what I do ------------------------------------------- */
+
+.skills{
+  display: grid;
+  gap: 1.9rem;
+}
+
+.skill h3{
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.03rem;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.4rem;
+}
+.skill p{
+  margin: 0;
+  max-width: 58ch;
+  color: var(--ink-soft);
+}
+
+/* ---------- work ------------------------------------------------ */
+
+.works{
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr));
+}
+
+.work{
+  background: var(--paper-lift);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--signal);
+  border-radius: 3px;
+  padding: 1.35rem 1.4rem 1.5rem;
+}
+
+.work h3{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.22rem;
+  letter-spacing: -0.018em;
+  margin: 0 0 0.55rem;
+}
+.work p{ margin: 0 0 0.75rem; }
+
+.built{
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.open{
+  display: inline-block;
+  margin-top: 0.4rem;
+  padding: 0.62rem 1.1rem;
+  background: var(--signal);
+  color: var(--paper-lift);
+  font-family: var(--display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  border-radius: 3px;
+  text-decoration: none;
+}
+.open:hover{ background: var(--signal-dark); color: var(--paper-lift); }
+
+/* ---------- study ------------------------------------------------ */
+
+.ledger{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ledger li{
+  display: grid;
+  grid-template-columns: 3.6rem 1fr;
+  gap: 0.2rem 1rem;
+  padding: 1.05rem 0;
+  border-top: 1px solid var(--rule);
+}
+.ledger li:first-child{ border-top: 0; padding-top: 0; }
+
+.yr{
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.16rem;
+}
+
+.what h3{
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 1.02rem;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin: 0;
+}
+.what p{
+  margin: 0.15rem 0 0;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.mark{
+  grid-column: 2;
+  font-family: var(--display);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--signal-dark);
+  background: var(--signal-tint);
+  border-radius: 2px;
+  padding: 0.1rem 0.45rem;
+  justify-self: start;
+  margin-top: 0.45rem;
+}
+
+/* ---------- contact ---------------------------------------------- */
+
+.contactlist{
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+  font-family: var(--display);
+  font-size: 1rem;
+}
+
+.colophon{
+  margin: var(--gap) 0 0;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- desktop rail ------------------------------------------ */
+
+@media (min-width: 900px){
+  .shell{
+    grid-template-columns: 15.5rem minmax(0, 1fr);
+    column-gap: clamp(2.5rem, 5vw, 5rem);
+    max-width: 72rem;
+    margin-inline: auto;
+    align-items: start;
+  }
+
+  .side{
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 3rem 0;
+  }
+
+  .me{
+    display: block;
+    padding: 0;
+  }
+  .portrait{
+    width: 76px;
+    height: 76px;
+    margin-bottom: 0.95rem;
+  }
+  .name{ font-size: 1.4rem; }
+
+  .index{
+    position: static;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: 0;
+    overflow: visible;
+    margin-right: auto;
+  }
+  .index ul{
+    flex-direction: column;
+    gap: 0;
+    width: auto;
+  }
+  .index a{
+    padding: 0.36rem 0 0.36rem 0.95rem;
+    font-size: 0.95rem;
+    border-bottom: 0;
+    border-left: 2px solid var(--rule);
+  }
+  .index a[aria-current="true"]{
+    border-left-color: var(--signal);
+    color: var(--ink);
+  }
+
+  .reach{
+    display: grid;
+    gap: 0.35rem;
+    list-style: none;
+    margin: auto 0 0;
+    padding: 0;
+    font-size: 0.9rem;
+  }
+  .reach a{ color: var(--ink-soft); text-decoration: none; }
+  .reach a:hover{ color: var(--signal); text-decoration: underline; }
+
+  .band{ scroll-margin-top: 3rem; }
+  .band:first-child{ padding-top: 3rem; }
+
+  .skills{
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem 2.2rem;
+  }
+
+  .ledger li{
+    grid-template-columns: 4.5rem 1fr auto;
+    align-items: baseline;
+    gap: 1.4rem;
+  }
+  .mark{
+    grid-column: 3;
+    margin-top: 0;
+    justify-self: end;
+  }
+}
+
+/* ---------- one load reveal, and nothing else ---------------------- */
+
+.js .lede,
+.js .standfirst{
+  opacity: 0;
+  transform: translateY(10px);
+}
+.js.ready .lede,
+.js.ready .standfirst{
+  opacity: 1;
+  transform: none;
+  transition: opacity .55s ease, transform .55s cubic-bezier(.2,.7,.3,1);
+}
+.js.ready .standfirst{ transition-delay: .1s; }
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  .js .lede,
+  .js .standfirst{ opacity: 1; transform: none; transition: none; }
+}
